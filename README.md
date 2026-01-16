@@ -1,5 +1,3 @@
 # ExtraTime
 
-Letterboxd, but for football matches. 
-
-Targeted for May 2026
+Letterboxd-style app for football matches. Track, rate, and remember matches.
