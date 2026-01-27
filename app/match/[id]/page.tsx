@@ -23,7 +23,7 @@ export default async function MatchDetailPage({ params }: PageProps) {
 
       <RatingBlock />
       <ReviewList />
-      <ExternalLinks />
+      <ExternalLinks matchId={match.id} />
     </>
   );
 }

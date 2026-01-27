@@ -61,6 +61,32 @@ export const sampleMatches: Match[] = [
   },
 ];
 
+export type MatchLink = {
+  matchId: string;
+  label: string;
+  url: string;
+  kind: "highlights" | "replay";
+};
+
+export const sampleLinks: MatchLink[] = [
+  {
+    matchId: "ucl-2024-final",
+    label: "Highlights search",
+    url: "https://www.youtube.com/results?search_query=borussia+dortmund+real+madrid+2024+final+highlights",
+    kind: "highlights",
+  },
+  {
+    matchId: "wc-2022-final",
+    label: "Highlights search",
+    url: "https://www.youtube.com/results?search_query=argentina+france+2022+final+highlights",
+    kind: "highlights",
+  }
+];
+
+export function getLinksForMatch(matchId: string): MatchLink[] {
+  return sampleLinks.filter((l) => l.matchId === matchId);
+}
+
 export function getMatchById(id: string): Match | undefined {
   return sampleMatches.find((m) => m.id === id);
 }
