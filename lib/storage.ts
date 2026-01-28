@@ -51,3 +51,15 @@ export function averageRatingForMatch(matchId: string) {
 export function allReviews() {
   return loadReviews();
 }
+
+export function deleteReview(id: string) {
+  const existing = loadReviews();
+  const next = existing.filter((r) => r.id !== id);
+  saveReviews(next);
+
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event("extratime:reviews-changed"));
+  }
+
+  return next;
+}

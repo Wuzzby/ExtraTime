@@ -38,6 +38,14 @@ export default function ReviewList({ matchId }: { matchId: string }) {
                 <span style={{ fontSize: "0.9rem" }}>{r.createdAt}</span>
               </div>
               <div>{r.text}</div>
+              <button
+                onClick={() => {
+                  import("@/lib/storage").then(({ deleteReview }) => deleteReview(r.id));
+                }}
+                style={{ marginTop: "0.5rem" }}
+              >
+                Delete
+              </button>
             </li>
           ))}
         </ul>
