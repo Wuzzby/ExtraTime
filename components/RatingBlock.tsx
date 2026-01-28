@@ -15,6 +15,15 @@ export default function RatingBlock({ matchId }: { matchId: string }) {
 
   useEffect(() => {
     refresh();
+
+    function onChanged() {
+      refresh();
+    }
+
+    window.addEventListener("extratime:reviews-changed", onChanged);
+    return () => {
+      window.removeEventListener("extratime:reviews-changed", onChanged);
+    };
   }, [matchId]);
 
   return (

@@ -30,6 +30,10 @@ export function addReview(review: StoredReview) {
   const existing = loadReviews();
   const next = [review, ...existing];
   saveReviews(next);
+    // Notify client components to refresh from localStorage immediately
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event("extratime:reviews-changed"));
+  }
   return next;
 }
 
