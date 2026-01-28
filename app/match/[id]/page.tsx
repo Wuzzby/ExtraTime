@@ -1,9 +1,7 @@
 import { notFound } from "next/navigation";
 import { getMatchById } from "@/lib/sampleData";
 import MatchHeader from "@/components/MatchHeader";
-import RatingBlock from "@/components/RatingBlock";
-import RateMatchForm from "@/components/RateMatchForm";
-import ReviewList from "@/components/ReviewList";
+import MatchCommunity from "@/components/MatchCommunity";
 import ExternalLinks from "@/components/ExternalLinks";
 
 
@@ -23,9 +21,7 @@ export default async function MatchDetailPage({ params }: PageProps) {
 
       <hr style={{ margin: "1.5rem 0" }} />
 
-      <RatingBlock matchId={match.id} />
-      <RateMatchForm matchId={match.id} />
-      <ReviewList matchId={match.id} />
+      <MatchCommunity matchId={match.id} />
       <ExternalLinks matchId={match.id} />
    </>
   );
