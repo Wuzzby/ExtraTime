@@ -47,3 +47,7 @@ export function averageRatingForMatch(matchId: string) {
   const sum = list.reduce((acc, r) => acc + r.rating, 0);
   return Math.round((sum / list.length) * 10) / 10; // 1 decimal
 }
+
+export function allReviews() {
+  return loadReviews();
+}
