@@ -1,18 +1,53 @@
 import Link from "next/link";
+import { featuredMatchId, getMatchById, sampleMatches } from "@/lib/sampleData";
+import { formatDate } from "@/lib/format";
 
-export default function Home() {
+export default function HomePage() {
+  const featured = getMatchById(featuredMatchId);
+  const recent = [...sampleMatches]
+    .sort((a, b) => (a.date < b.date ? 1 : -1))
+    .slice(0, 5);
+
   return (
-    <main style={{ padding: "2rem", fontFamily: "system-ui" }}>
+    <>
       <h1>ExtraTime</h1>
-      <p>Track, rate, and remember football matches.</p>
+      <p>Rate matches. Write reviews. Share the moments.</p>
 
-      <nav style={{ marginTop: "2rem" }}>
-        <ul>
-          <li><Link href="/feed">Feed</Link></li>
-          <li><Link href="/match">Match</Link></li>
-          <li><Link href="/profile">Profile</Link></li>
-        </ul>
-      </nav>
-    </main>
+      <h2 style={{ marginTop: "1.5rem" }}>Match of the Week</h2>
+
+      {!featured ? (
+        <p>Featured match not set.</p>
+      ) : (
+        <div style={{ marginTop: "0.75rem" }}>
+          <div style={{ fontSize: "1.1rem" }}>
+            <Link href={`/match/${featured.id}`}>
+              {featured.homeTeam} vs {featured.awayTeam}
+            </Link>
+          </div>
+          <div style={{ opacity: 0.8 }}>
+            {featured.competition} · {featured.stage} · {featured.season} ·{" "}
+            {formatDate(featured.date)}
+          </div>
+        </div>
+      )}
+
+      <h2 style={{ marginTop: "1.5rem" }}>Recent matches</h2>
+      <ul style={{ marginTop: "0.75rem", paddingLeft: "1.25rem" }}>
+        {recent.map((m) => (
+          <li key={m.id} style={{ marginBottom: "0.75rem" }}>
+            <Link href={`/match/${m.id}`}>
+              {m.homeTeam} vs {m.awayTeam}
+            </Link>
+            <div style={{ fontSize: "0.9rem", opacity: 0.8 }}>
+              {m.competition} · {m.stage} · {m.season} · {formatDate(m.date)}
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div style={{ marginTop: "1.5rem" }}>
+        <Link href="/feed">Go to Feed</Link>
+      </div>
+    </>
   );
 }

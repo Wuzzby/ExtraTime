@@ -90,3 +90,5 @@ export function getLinksForMatch(matchId: string): MatchLink[] {
 export function getMatchById(id: string): Match | undefined {
   return sampleMatches.find((m) => m.id === id);
 }
+
+export const featuredMatchId = "ucl-2024-final";
