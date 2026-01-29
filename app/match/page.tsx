@@ -1,8 +1,12 @@
-export default function MatchPage() {
+import MatchList from "@/components/MatchList";
+import { sampleMatches } from "@/lib/sampleData";
+
+export default function MatchIndexPage() {
   return (
-    <>
-      <h1>Match</h1>
-      <p>Match details, reviews, and highlights will live here.</p>
-    </>
+    <MatchList
+      matches={sampleMatches}
+      title="Match"
+      subtitle="Browse matches (sample data for now)."
+    />
   );
 }
