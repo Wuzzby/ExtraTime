@@ -15,11 +15,15 @@ export default function HomePage() {
 
       <h2 style={{ marginTop: "1.5rem" }}>Match of the Week</h2>
 
+      <p style={{ opacity: 0.8 }}>
+        The match we’re watching, rating, and discussing right now.
+      </p>
+
       {!featured ? (
         <p>Featured match not set.</p>
       ) : (
-        <div style={{ marginTop: "0.75rem" }}>
-          <div style={{ fontSize: "1.1rem" }}>
+        <div style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #ddd" }}>
+          <div style={{ marginTop: "0.75rem" }}>
             <Link href={`/match/${featured.id}`}>
               {featured.homeTeam} vs {featured.awayTeam}
             </Link>
@@ -47,7 +51,17 @@ export default function HomePage() {
 
       <div style={{ marginTop: "1.5rem" }}>
         <Link href="/feed">Go to Feed</Link>
-      </div>
+      </div><div style={{ marginTop: "1.5rem" }}>
+  {featured && (
+    <Link href={`/match/${featured.id}`}>
+      Rate this match
+    </Link>
+  )}
+  <br />
+  <Link href="/match">
+    Browse all matches
+  </Link>
+</div>
     </>
   );
 }
