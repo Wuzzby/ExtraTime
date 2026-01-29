@@ -32,6 +32,7 @@ export default function RootLayout({
             <Link href="/" style={{ fontWeight: 600, textDecoration: "none" }}>
               ExtraTime
             </Link>
+            <Link href="/">Home</Link>
             <Link href="/feed">Feed</Link>
             <Link href="/match">Match</Link>
             <Link href="/profile">Profile</Link>
