@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { featuredMatchId, getMatchById, sampleMatches } from "@/lib/sampleData";
+import {
+  featuredMatchId,
+  featuredMatchMeta,
+  getMatchById,
+  sampleMatches,
+} from "@/lib/sampleData";
 import { formatDate } from "@/lib/format";
 
 export default function HomePage() {
@@ -22,15 +27,26 @@ export default function HomePage() {
       {!featured ? (
         <p>Featured match not set.</p>
       ) : (
-        <div style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #ddd" }}>
-          <div style={{ marginTop: "0.75rem" }}>
+        <div
+          style={{
+            marginTop: "1rem",
+            padding: "1rem",
+            border: "1px solid #ddd",
+          }}
+        >
+          <div style={{ fontSize: "1.1rem" }}>
             <Link href={`/match/${featured.id}`}>
               {featured.homeTeam} vs {featured.awayTeam}
             </Link>
           </div>
+
           <div style={{ opacity: 0.8 }}>
             {featured.competition} · {featured.stage} · {featured.season} ·{" "}
             {formatDate(featured.date)}
+          </div>
+
+          <div style={{ marginTop: "0.5rem", opacity: 0.7 }}>
+            {featuredMatchMeta.reason}
           </div>
         </div>
       )}
@@ -50,18 +66,12 @@ export default function HomePage() {
       </ul>
 
       <div style={{ marginTop: "1.5rem" }}>
-        <Link href="/feed">Go to Feed</Link>
-      </div><div style={{ marginTop: "1.5rem" }}>
-  {featured && (
-    <Link href={`/match/${featured.id}`}>
-      Rate this match
-    </Link>
-  )}
-  <br />
-  <Link href="/match">
-    Browse all matches
-  </Link>
-</div>
+        {featured && (
+          <Link href={`/match/${featured.id}`}>Rate this match</Link>
+        )}
+        <br />
+        <Link href="/match">Browse all matches</Link>
+      </div>
     </>
   );
 }
