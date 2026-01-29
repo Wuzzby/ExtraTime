@@ -92,3 +92,10 @@ export function getMatchById(id: string): Match | undefined {
 }
 
 export const featuredMatchId = "ucl-2024-final";
+
+export const featuredMatchMeta = {
+  reason: "Champions League Final",
+  startsAt: "2024-05-25",
+  endsAt: "2024-06-01",
+};
+
