@@ -5,13 +5,18 @@ import {
   getMatchById,
   sampleMatches,
 } from "@/lib/sampleData";
-import { formatDate } from "@/lib/format";
+import { formatDate, getWindowStatus } from "@/lib/format";
 
 export default function HomePage() {
   const featured = getMatchById(featuredMatchId);
   const recent = [...sampleMatches]
     .sort((a, b) => (a.date < b.date ? 1 : -1))
     .slice(0, 5);
+
+  const featuredStatus = getWindowStatus(
+    featuredMatchMeta.startsAt,
+    featuredMatchMeta.endsAt
+  );
 
   return (
     <>
@@ -30,13 +35,17 @@ export default function HomePage() {
           style={{
             marginTop: "0.75rem",
             padding: "1.25rem",
-            border: "1px solid #ddd",
+            border: "1px solid #333",
             borderRadius: "6px",
-            background: "#fafafa",
+            background: "#111",
+            color: "#f5f5f5",
           }}
         >
-          <div style={{ fontSize: "1.15rem" }}>
-            <Link href={`/match/${featured.id}`}>
+          <div style={{ fontSize: "1.15rem", fontWeight: 600 }}>
+            <Link
+              href={`/match/${featured.id}`}
+              style={{ color: "#ffffff", textDecoration: "none" }}
+            >
               {featured.homeTeam} vs {featured.awayTeam}
             </Link>
           </div>
@@ -46,9 +55,19 @@ export default function HomePage() {
             {formatDate(featured.date)}
           </div>
 
-          <div style={{ marginTop: "0.6rem", opacity: 0.75 }}>
+          <div style={{ marginTop: "0.6rem", opacity: 0.8 }}>
             {featuredMatchMeta.reason}
           </div>
+
+          <div style={{ marginTop: "0.35rem", opacity: 0.7 }}>
+            Status: {featuredStatus}
+          </div>
+
+          {featuredStatus === "ended" && (
+            <div style={{ marginTop: "0.6rem", opacity: 0.7 }}>
+              This featured window has ended. Browse matches to rate another one.
+            </div>
+          )}
         </div>
       )}
 
@@ -67,8 +86,12 @@ export default function HomePage() {
       </ul>
 
       <div style={{ marginTop: "2rem" }}>
-        {featured && <Link href={`/match/${featured.id}`}>Rate this match</Link>}
-        <br />
+        {featured && featuredStatus !== "ended" && (
+          <>
+            <Link href={`/match/${featured.id}`}>Rate this match</Link>
+            <br />
+          </>
+        )}
         <Link href="/match">Browse all matches</Link>
       </div>
     </>
