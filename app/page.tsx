@@ -18,43 +18,44 @@ export default function HomePage() {
       <h1>ExtraTime</h1>
       <p>Rate matches. Write reviews. Share the moments.</p>
 
-      <h2 style={{ marginTop: "1.5rem" }}>Match of the Week</h2>
-
-      <p style={{ opacity: 0.8 }}>
+      <h2 style={{ marginTop: "2rem" }}>Match of the Week</h2>
+      <p style={{ marginTop: "0.75rem", opacity: 0.8 }}>
         The match we’re watching, rating, and discussing right now.
       </p>
 
       {!featured ? (
-        <p>Featured match not set.</p>
+        <p style={{ marginTop: "0.75rem" }}>Featured match not set.</p>
       ) : (
         <div
           style={{
-            marginTop: "1rem",
-            padding: "1rem",
+            marginTop: "0.75rem",
+            padding: "1.25rem",
             border: "1px solid #ddd",
+            borderRadius: "6px",
+            background: "#fafafa",
           }}
         >
-          <div style={{ fontSize: "1.1rem" }}>
+          <div style={{ fontSize: "1.15rem" }}>
             <Link href={`/match/${featured.id}`}>
               {featured.homeTeam} vs {featured.awayTeam}
             </Link>
           </div>
 
-          <div style={{ opacity: 0.8 }}>
+          <div style={{ marginTop: "0.4rem", opacity: 0.85 }}>
             {featured.competition} · {featured.stage} · {featured.season} ·{" "}
             {formatDate(featured.date)}
           </div>
 
-          <div style={{ marginTop: "0.5rem", opacity: 0.7 }}>
+          <div style={{ marginTop: "0.6rem", opacity: 0.75 }}>
             {featuredMatchMeta.reason}
           </div>
         </div>
       )}
 
-      <h2 style={{ marginTop: "1.5rem" }}>Recent matches</h2>
+      <h2 style={{ marginTop: "2rem" }}>Recent matches</h2>
       <ul style={{ marginTop: "0.75rem", paddingLeft: "1.25rem" }}>
         {recent.map((m) => (
-          <li key={m.id} style={{ marginBottom: "0.75rem" }}>
+          <li key={m.id} style={{ marginBottom: "0.9rem" }}>
             <Link href={`/match/${m.id}`}>
               {m.homeTeam} vs {m.awayTeam}
             </Link>
@@ -65,10 +66,8 @@ export default function HomePage() {
         ))}
       </ul>
 
-      <div style={{ marginTop: "1.5rem" }}>
-        {featured && (
-          <Link href={`/match/${featured.id}`}>Rate this match</Link>
-        )}
+      <div style={{ marginTop: "2rem" }}>
+        {featured && <Link href={`/match/${featured.id}`}>Rate this match</Link>}
         <br />
         <Link href="/match">Browse all matches</Link>
       </div>
