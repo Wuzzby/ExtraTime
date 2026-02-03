@@ -30,7 +30,7 @@ export default function RatingBlock({ matchId }: { matchId: string }) {
     <section>
       <h2>Community Rating</h2>
       {count === 0 ? (
-        <p>No ratings yet. Be the first to rate this match.</p>
+        <p>No community rating yet. Be the first to rate this match.</p>
       ) : (
         <p>
           {avg}/10 from {count} rating{count === 1 ? "" : "s"}.

@@ -14,7 +14,9 @@ export default async function MatchDetailPage({ params }: PageProps) {
   const { id } = await params;
   const match = getMatchById(id);
 
-  if (!match) return notFound();
+  if (!match) {
+    return notFound();
+  }
 
   return (
     <>

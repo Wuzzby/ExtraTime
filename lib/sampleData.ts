@@ -8,6 +8,15 @@ export type Match = {
   awayTeam: string;
 };
 
+export type ExternalLink = {
+  label: string;
+  url: string;
+};
+
+/* =========================
+   MATCH CATALOG
+========================= */
+
 export const sampleMatches: Match[] = [
   {
     id: "ucl-2024-final",
@@ -47,24 +56,6 @@ export const sampleMatches: Match[] = [
     homeTeam: "Germany",
     awayTeam: "Argentina",
   },
-  {
-    id: "wc-2010-final",
-    date: "2010-07-11",
-    competition: "FIFA World Cup",
-    stage: "Final",
-    season: "2010",
-    homeTeam: "Netherlands",
-    awayTeam: "Spain",
-  },
-  {
-    id: "wc-2006-final",
-    date: "2006-07-09",
-    competition: "FIFA World Cup",
-    stage: "Final",
-    season: "2006",
-    homeTeam: "Italy",
-    awayTeam: "France",
-  },
 
   // Euros
   {
@@ -76,102 +67,8 @@ export const sampleMatches: Match[] = [
     homeTeam: "Italy",
     awayTeam: "England",
   },
-  {
-    id: "euro-2016-final",
-    date: "2016-07-10",
-    competition: "UEFA European Championship",
-    stage: "Final",
-    season: "2016",
-    homeTeam: "Portugal",
-    awayTeam: "France",
-  },
-  {
-    id: "euro-2012-final",
-    date: "2012-07-01",
-    competition: "UEFA European Championship",
-    stage: "Final",
-    season: "2012",
-    homeTeam: "Spain",
-    awayTeam: "Italy",
-  },
-
-  // Copa América
-  {
-    id: "copa-2021-final",
-    date: "2021-07-10",
-    competition: "Copa America",
-    stage: "Final",
-    season: "2021",
-    homeTeam: "Brazil",
-    awayTeam: "Argentina",
-  },
-  {
-    id: "copa-2019-final",
-    date: "2019-07-07",
-    competition: "Copa America",
-    stage: "Final",
-    season: "2019",
-    homeTeam: "Brazil",
-    awayTeam: "Peru",
-  },
-
-  // Champions League Finals
-  {
-    id: "ucl-2023-final",
-    date: "2023-06-10",
-    competition: "UEFA Champions League",
-    stage: "Final",
-    season: "2022-23",
-    homeTeam: "Manchester City",
-    awayTeam: "Inter",
-  },
-  {
-    id: "ucl-2022-final",
-    date: "2022-05-28",
-    competition: "UEFA Champions League",
-    stage: "Final",
-    season: "2021-22",
-    homeTeam: "Liverpool",
-    awayTeam: "Real Madrid",
-  },
-  {
-    id: "ucl-2021-final",
-    date: "2021-05-29",
-    competition: "UEFA Champions League",
-    stage: "Final",
-    season: "2020-21",
-    homeTeam: "Manchester City",
-    awayTeam: "Chelsea",
-  },
-  {
-    id: "ucl-2020-final",
-    date: "2020-08-23",
-    competition: "UEFA Champions League",
-    stage: "Final",
-    season: "2019-20",
-    homeTeam: "Paris Saint-Germain",
-    awayTeam: "Bayern Munich",
-  },
 
   // Iconic matches
-  {
-    id: "ucl-2017-barca-psg-comeback",
-    date: "2017-03-08",
-    competition: "UEFA Champions League",
-    stage: "Round of 16",
-    season: "2016-17",
-    homeTeam: "Barcelona",
-    awayTeam: "Paris Saint-Germain",
-  },
-  {
-    id: "ucl-2019-liverpool-barcelona-anfield",
-    date: "2019-05-07",
-    competition: "UEFA Champions League",
-    stage: "Semi-final",
-    season: "2018-19",
-    homeTeam: "Liverpool",
-    awayTeam: "Barcelona",
-  },
   {
     id: "wc-2014-brazil-germany-7-1",
     date: "2014-07-08",
@@ -192,9 +89,18 @@ export const sampleMatches: Match[] = [
   },
 ];
 
-export function getMatchById(id: string) {
-  return sampleMatches.find((m) => m.id === id);
+/* =========================
+   HELPERS
+========================= */
+
+export function getMatchById(id: string): Match | null {
+  const match = sampleMatches.find((m) => m.id === id);
+  return match ?? null;
 }
+
+/* =========================
+   FEATURED MATCH
+========================= */
 
 export const featuredMatchId = "ucl-2024-final";
 
@@ -203,3 +109,24 @@ export const featuredMatchMeta = {
   startsAt: "2024-05-25",
   endsAt: "2024-06-01",
 };
+
+/* =========================
+   EXTERNAL LINKS
+========================= */
+
+const externalLinksByMatch: Record<string, ExternalLink[]> = {
+  "ucl-2024-final": [
+    {
+      label: "Highlights (YouTube)",
+      url: "https://www.youtube.com/results?search_query=borussia+dortmund+real+madrid+2024+final",
+    },
+    {
+      label: "Official Match Page (UEFA)",
+      url: "https://www.uefa.com/uefachampionsleague/",
+    },
+  ],
+};
+
+export function getLinksForMatch(matchId: string): ExternalLink[] {
+  return externalLinksByMatch[matchId] ?? [];
+}

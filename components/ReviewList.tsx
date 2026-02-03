@@ -28,7 +28,7 @@ export default function ReviewList({ matchId }: { matchId: string }) {
       <h2>Reviews</h2>
 
       {reviews.length === 0 ? (
-        <p>No reviews yet. Add the first review above.</p>
+        <p>No reviews yet. Be the first to share your thoughts on this match.</p>
       ) : (
         <ul style={{ paddingLeft: "1.25rem" }}>
           {reviews.map((r) => (

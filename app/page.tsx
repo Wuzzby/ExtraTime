@@ -25,7 +25,7 @@ export default function HomePage() {
 
       <h2 style={{ marginTop: "2rem" }}>Match of the Week</h2>
       <p style={{ marginTop: "0.75rem", opacity: 0.8 }}>
-        The match we’re watching, rating, and discussing right now.
+        The featured match the community is rating and discussing right now.
       </p>
 
       {!featured ? (

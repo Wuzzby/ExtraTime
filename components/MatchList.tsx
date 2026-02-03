@@ -2,104 +2,122 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import type { Match } from "@/lib/sampleData";
 import { formatDate } from "@/lib/format";
+import type { Match } from "@/lib/sampleData";
 
-type SortMode = "newest" | "oldest";
-
-export default function MatchList({
-  matches,
-  title,
-  subtitle,
-}: {
+type Props = {
   matches: Match[];
   title: string;
   subtitle?: string;
-}) {
+};
+
+export default function MatchList({ matches, title, subtitle }: Props) {
   const [query, setQuery] = useState("");
-  const [competition, setCompetition] = useState("all");
-  const [sort, setSort] = useState<SortMode>("newest");
+  const [competition, setCompetition] = useState("All");
+  const [sort, setSort] = useState<"Newest" | "Oldest">("Newest");
 
   const competitions = useMemo(() => {
     const set = new Set(matches.map((m) => m.competition));
-    return ["all", ...Array.from(set).sort()];
+    return ["All", ...Array.from(set)];
   }, [matches]);
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    return matches
+      .filter((m) => {
+        const q = query.toLowerCase();
+        const matchesQuery =
+          m.homeTeam.toLowerCase().includes(q) ||
+          m.awayTeam.toLowerCase().includes(q) ||
+          m.competition.toLowerCase().includes(q) ||
+          m.season.toLowerCase().includes(q);
 
-    let list = matches;
+        const matchesCompetition =
+          competition === "All" || m.competition === competition;
 
-    if (competition !== "all") {
-      list = list.filter((m) => m.competition === competition);
-    }
-
-    if (q.length > 0) {
-      list = list.filter((m) => {
-        const hay = `${m.homeTeam} ${m.awayTeam} ${m.competition} ${m.stage} ${m.season}`.toLowerCase();
-        return hay.includes(q);
-      });
-    }
-
-    list = [...list].sort((a, b) => {
-      if (a.date === b.date) return 0;
-      return sort === "newest" ? (a.date < b.date ? 1 : -1) : a.date < b.date ? -1 : 1;
-    });
-
-    return list;
+        return matchesQuery && matchesCompetition;
+      })
+      .sort((a, b) =>
+        sort === "Newest" ? (a.date < b.date ? 1 : -1) : a.date > b.date ? 1 : -1
+      );
   }, [matches, query, competition, sort]);
 
   return (
     <>
       <h1>{title}</h1>
-      {subtitle ? <p>{subtitle}</p> : null}
+      {subtitle && <p>{subtitle}</p>}
 
+      {/* Toolbar */}
       <div
         style={{
-          marginTop: "1rem",
           display: "flex",
-          gap: "0.75rem",
           flexWrap: "wrap",
+          gap: "1rem",
+          marginTop: "1.5rem",
           alignItems: "center",
         }}
       >
         <input
+          type="text"
+          placeholder="Search teams, competition, season"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search teams, competition, season..."
-          style={{ padding: "0.5rem", minWidth: "260px" }}
+          style={{
+            flex: 1,
+            minWidth: "320px",
+            width: "100%",
+            padding: "0.5rem",
+            background: "#111",
+            color: "#fff",
+            border: "1px solid #333",
+            borderRadius: "4px",
+          }}
         />
 
-        <label>
-          Competition{" "}
-          <select value={competition} onChange={(e) => setCompetition(e.target.value)}>
-            {competitions.map((c) => (
-              <option key={c} value={c}>
-                {c === "all" ? "All" : c}
-              </option>
-            ))}
-          </select>
-        </label>
+        <select
+          value={competition}
+          onChange={(e) => setCompetition(e.target.value)}
+          style={{
+            padding: "0.5rem",
+            background: "#111",
+            color: "#fff",
+            border: "1px solid #333",
+            borderRadius: "4px",
+          }}
+        >
+          {competitions.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </select>
 
-        <label>
-          Sort{" "}
-          <select value={sort} onChange={(e) => setSort(e.target.value as SortMode)}>
-            <option value="newest">Newest</option>
-            <option value="oldest">Oldest</option>
-          </select>
-        </label>
+        <select
+          value={sort}
+          onChange={(e) => setSort(e.target.value as "Newest" | "Oldest")}
+          style={{
+            padding: "0.5rem",
+            background: "#111",
+            color: "#fff",
+            border: "1px solid #333",
+            borderRadius: "4px",
+          }}
+        >
+          <option value="Newest">Newest</option>
+          <option value="Oldest">Oldest</option>
+        </select>
 
-        <div style={{ opacity: 0.75 }}>{filtered.length} match{filtered.length === 1 ? "" : "es"}</div>
+        <div style={{ opacity: 0.7 }}>{filtered.length} matches</div>
       </div>
 
-      <ul style={{ marginTop: "1rem", paddingLeft: "1.25rem" }}>
-        {filtered.map((match) => (
-          <li key={match.id} style={{ marginBottom: "0.9rem" }}>
-            <Link href={`/match/${match.id}`}>
-              {match.homeTeam} vs {match.awayTeam}
+      {/* List */}
+      <ul style={{ marginTop: "1.5rem", paddingLeft: "1.25rem" }}>
+        {filtered.map((m) => (
+          <li key={m.id} style={{ marginBottom: "1rem" }}>
+            <Link href={`/match/${m.id}`}>
+              {m.homeTeam} vs {m.awayTeam}
             </Link>
             <div style={{ fontSize: "0.9rem", opacity: 0.8 }}>
-              {match.competition} · {match.stage} · {match.season} · {formatDate(match.date)}
+              {m.competition} · {m.stage} · {m.season} · {formatDate(m.date)}
             </div>
           </li>
         ))}
