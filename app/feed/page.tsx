@@ -6,7 +6,7 @@ export default function FeedPage() {
     <MatchList
       matches={sampleMatches}
       title="Feed"
-      subtitle="Discover matches to rate and review."
+      subtitle="Search and explore matches. Click any match to rate and review."
     />
   );
 }

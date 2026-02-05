@@ -6,7 +6,7 @@ export default function MatchIndexPage() {
     <MatchList
       matches={sampleMatches}
       title="Matches"
-      subtitle="Browse matches by competition, season, or date."
+      subtitle="Browse the match catalog. Search by teams, competition, or season."
     />
   );
 }

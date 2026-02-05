@@ -21,7 +21,10 @@ export default function HomePage() {
   return (
     <>
       <h1>ExtraTime</h1>
-      <p>Rate matches. Write reviews. Share the moments.</p>
+      <p>
+        A community log for football matches. Rate games, write quick reviews, and
+        revisit iconic moments.
+      </p>
 
       <h2 style={{ marginTop: "2rem" }}>Match of the Week</h2>
       <p style={{ marginTop: "0.75rem", opacity: 0.8 }}>
@@ -71,6 +74,18 @@ export default function HomePage() {
         </div>
       )}
 
+      <div style={{ marginTop: "1.5rem" }}>
+        {featured && featuredStatus !== "ended" && (
+          <>
+            <Link href={`/match/${featured.id}`}>Rate this match</Link>
+            <br />
+          </>
+        )}
+        <Link href="/match">Browse all matches</Link>
+        <br />
+        <Link href="/feed">Explore the feed</Link>
+      </div>
+
       <h2 style={{ marginTop: "2rem" }}>Recent matches</h2>
       <ul style={{ marginTop: "0.75rem", paddingLeft: "1.25rem" }}>
         {recent.map((m) => (
@@ -84,16 +99,6 @@ export default function HomePage() {
           </li>
         ))}
       </ul>
-
-      <div style={{ marginTop: "2rem" }}>
-        {featured && featuredStatus !== "ended" && (
-          <>
-            <Link href={`/match/${featured.id}`}>Rate this match</Link>
-            <br />
-          </>
-        )}
-        <Link href="/match">Browse all matches</Link>
-      </div>
     </>
   );
 }
