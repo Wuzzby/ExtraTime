@@ -87,6 +87,53 @@ export const sampleMatches: Match[] = [
     homeTeam: "Manchester City",
     awayTeam: "Queens Park Rangers",
   },
+
+    // World Cup 2026 (planned)
+  {
+    id: "wc-2026-opening-match",
+    date: "2026-06-11",
+    competition: "FIFA World Cup",
+    stage: "Group Stage",
+    season: "2026",
+    homeTeam: "TBD",
+    awayTeam: "TBD",
+  },
+  {
+    id: "wc-2026-group-a-match-1",
+    date: "2026-06-12",
+    competition: "FIFA World Cup",
+    stage: "Group A",
+    season: "2026",
+    homeTeam: "TBD",
+    awayTeam: "TBD",
+  },
+  {
+    id: "wc-2026-group-b-match-1",
+    date: "2026-06-13",
+    competition: "FIFA World Cup",
+    stage: "Group B",
+    season: "2026",
+    homeTeam: "TBD",
+    awayTeam: "TBD",
+  },
+  {
+    id: "wc-2026-quarterfinal-1",
+    date: "2026-07-04",
+    competition: "FIFA World Cup",
+    stage: "Quarter-final",
+    season: "2026",
+    homeTeam: "TBD",
+    awayTeam: "TBD",
+  },
+  {
+    id: "wc-2026-final",
+    date: "2026-07-19",
+    competition: "FIFA World Cup",
+    stage: "Final",
+    season: "2026",
+    homeTeam: "TBD",
+    awayTeam: "TBD",
+  },
 ];
 
 /* =========================
